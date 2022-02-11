@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+  php:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    volumes:
+      - ./src:/var/www
+  web:
+    image: nginx
+    links:
+      - php
+    ports:
+      - 8000:80
+    volumes:
+      - ./src:/var/www
+      - ./ngnix.conf:/etc/nginx/conf.d/ngnix.conf
+      - ./ngnix.conf:/etc/nginx/conf.d/default.conf
